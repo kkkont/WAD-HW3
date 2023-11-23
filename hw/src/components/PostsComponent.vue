@@ -13,8 +13,9 @@
     <img class="img" :src="post.img" >
     <div class="likesDiv">
         <h4 class="likes"> {{post.likes}} </h4>
+        <button @click="likePost(post)">
         <img id="like_icon" alt= "Likes" src="../assets/like.png">
-         
+    </button>
     </div>
     </p>
     </div>
@@ -32,6 +33,11 @@
         postList(){
     return this.$store.state.postList}
     
+    },
+    methods: {
+        likePost(post){
+            this.$store.dispatch("likePostAct", post.id)
+        }
     }
     }
     </script>
