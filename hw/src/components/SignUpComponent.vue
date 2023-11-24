@@ -7,7 +7,6 @@
           <label for="email">Email</label>
           <input type="email" v-model="email" placeholder="Email" required>
         </div>
-  
         <div class="form-group">
           <label for="password">Password</label>
           <input type="password" v-model="password" placeholder="Password" required>
@@ -62,8 +61,14 @@
   </script>
   
   <style scoped>
+  #signup-page{
+    display:flex;
+    margin: 0px 20px 0px 20px;
+  }
 
 .form-container {
+  display:flex;
+  flex-direction: column;
   width: 100%;
   max-width: 400px;
   margin: auto;
@@ -80,8 +85,6 @@ h1 {
     background-color: #1f3453;
 }
 .signup-form {
-    max-width: 500px;
-    margin: auto;
     background-color: #1f3453;
   }
 
@@ -110,7 +113,6 @@ h1 {
     padding: 20px;
     font-size: 18px;
     background-color: #324e79;
-
     border-radius: 20px;
   }
   
@@ -134,10 +136,5 @@ h1 {
   .signup-button:hover {
     background-color: #113f67;
   }
-  
-  @media screen and (max-width: 800px){
-    .signup-form {
-      width: 100%;
-    }
-  }
+
   </style>
