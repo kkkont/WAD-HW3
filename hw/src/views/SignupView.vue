@@ -50,7 +50,7 @@ data() {
 }
 
 .signup{
-    width:100%;
+    width:60%;
    }
 .sidebar1{
     margin:20px 0px 20px 0px;
