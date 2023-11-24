@@ -4,7 +4,6 @@
     <router-link to="/signup">Sign up</router-link> 
   </nav>
   <router-view/>
-  <button class="resetlikes" @click="removeLikes(post)"><p>Reset likes</p> </button>
   <footer>
     <nav>
       <router-link to="/">Home</router-link> |
@@ -14,13 +13,6 @@
   </footer>
 </template>
 <script>
-export default {
-  methods: {
-    removeLikes: function() {
-        this.$store.dispatch('removeLikesAct');
-      }
-    }
-  }
 
 </script>
 

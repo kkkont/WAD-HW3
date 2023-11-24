@@ -6,6 +6,7 @@
         </div>
         <div class= "sidebar2"></div>
     </div>
+    <button class="resetlikes" @click="removeLikes(post)"><p>Reset likes</p> </button>
    </template>
    
    <script>
@@ -17,8 +18,14 @@
    data: function() {
    return {
    }},
+   methods: {
+    removeLikes: function() {
+        this.$store.dispatch('removeLikesAct');
+      }
+    }
 
    }
+
    </script>
    
    <style>
@@ -39,6 +46,18 @@
     width:20%;
     background-color: #38598b;
     border-radius: 25px;
+}
+.resetlikes{
+  color:#e7eaf6;
+  font-weight: bold;
+  width: 100px;
+  height: 50px;
+  background-color:   #113f67;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 10px;
+  text-align: center;
+
 }
 
 @media screen and (max-width: 800px){
