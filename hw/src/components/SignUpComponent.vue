@@ -35,8 +35,6 @@
     name: "SignUpComponent",
     data() {
       return {
-        email: '',
-        password: '',
         isPasswordValid: true,
       };
     },
@@ -46,11 +44,6 @@
           this.isPasswordValid = false;
           return;
         }
-        this.isPasswordValid = true;
-        console.log('User Data:', {
-          email: this.email,
-          password: this.password,
-        });
       },
       validatePassword() {
         const regex = /^(?=.*[A-Z])(?=.*[a-z].*[a-z])(?=.*\d)(?=.*_)[A-Z].{7,14}$/;
