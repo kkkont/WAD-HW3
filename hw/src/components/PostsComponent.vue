@@ -13,7 +13,7 @@
     <img class="img" :src="post.img" >
     <div class="likesDiv">
         <h4 class="likes"> {{post.likes}} </h4>
-        <button class="heart-button" style="width:50px" @click="likePost(post)">
+        <button :class="{ 'heart-button': true, 'isColorTransition': isColorTransition }" style="width:50px" @click="likePost(post); changeColor()">
     </button>
     </div>
     </p>
@@ -26,7 +26,7 @@
         name: "PostsComponent",
         data: function() {
     return {
-    
+        isColorTransition: false,
     }},
     computed: {
         postList(){
@@ -36,7 +36,15 @@
     methods: {
         likePost(post){
             this.$store.dispatch("likePostAct", post.id)
-        }
+        },
+        changeColor() {
+
+      this.isColorTransition = true;
+
+      setTimeout(() => {
+        this.isColorTransition = false;
+      }, 150); 
+    },
     }
     }
     </script>
@@ -98,6 +106,7 @@
         padding-right:10px;
     }
 
+    /*Got the shape from: https://stackoverflow.com/questions/17386168/how-to-create-a-heart-shape-using-css */
     .heart-button {
         display: inline-block;
         background-color: none;
@@ -107,10 +116,15 @@
         clip-path: polygon(-41% 0, 50% 91%, 141% 0);
         transition: background-color 0.3s ease;
 }
-
-.heart-button :focus{
-    border-image: radial-gradient(pink 69%, #38598b 70%) 84.5%/50%;
-}
+    .isColorTransition {
+        display: inline-block;
+        background-color: none;
+        width: 200px;
+        aspect-ratio: 1;
+        border-image: radial-gradient(#113f67 69%, #38598b 70%) 84.5%/50%;
+        clip-path: polygon(-41% 0, 50% 91%, 141% 0);
+        transition: background-color 0.3s ease;
+    }
 
   
     @media screen and (max-width: 800px){
