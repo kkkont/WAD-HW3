@@ -4,6 +4,7 @@
     <router-link to="/signup">Sign up</router-link> 
   </nav>
   <router-view/>
+  <button class="resetlikes" @click="removeLikes(post)"><p>Reset likes</p> </button>
   <footer>
     <nav>
       <router-link to="/">Home</router-link> |
@@ -13,8 +14,16 @@
   </footer>
 </template>
 <script>
+export default {
+  methods: {
+    removeLikes: function() {
+        this.$store.dispatch('removeLikesAct');
+      }
+    }
+  }
 
 </script>
+
 
 <style>
 *{
@@ -49,6 +58,19 @@
 
 .navbar a:hover{
   background-color:   #113f67;
+}
+
+.resetlikes{
+  color:#e7eaf6;
+  font-weight: bold;
+  width: 100px;
+  height: 50px;
+  background-color:   #113f67;
+  border-radius: 8px;
+  font-size: 14px;
+  line-height: 10px;
+  text-align: center;
+
 }
 
 

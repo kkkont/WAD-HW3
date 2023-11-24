@@ -113,11 +113,23 @@ export default createStore({
             post.likes += 1;
       }
     
-    }},
+    },
+    removeLikes: state => {
+        state.postList.forEach(post => {
+            post.likes = 0;
+        })
+    }
+},
     actions: {
         likePostAct: (act, postId) => {
             setTimeout(function() {
                 act.commit("likePost", postId)
             }, 100)
-    }}
+    },
+    removeLikesAct: act => {
+        setTimeout(function() {
+            act.commit("removeLikes")
+        }, 1000)
+    }
+}
 })

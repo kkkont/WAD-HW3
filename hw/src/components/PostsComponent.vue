@@ -13,8 +13,7 @@
     <img class="img" :src="post.img" >
     <div class="likesDiv">
         <h4 class="likes"> {{post.likes}} </h4>
-        <button @click="likePost(post)">
-        <img id="like_icon" alt= "Likes" src="../assets/like.png">
+        <button class="heart-button" style="width:50px" @click="likePost(post)">
     </button>
     </div>
     </p>
@@ -98,11 +97,21 @@
         font-size: x-large;
         padding-right:10px;
     }
-    #like_icon{
-        background-color:  #38598b;
-        width:40px;
-        height:40px;
-    }
+
+    .heart-button {
+        display: inline-block;
+        background-color: none;
+        width: 200px;
+        aspect-ratio: 1;
+        border-image: radial-gradient(#e7eaf6 69%, #38598b 70%) 84.5%/50%;
+        clip-path: polygon(-41% 0, 50% 91%, 141% 0);
+        transition: background-color 0.3s ease;
+}
+
+.heart-button :focus{
+    border-image: radial-gradient(pink 69%, #38598b 70%) 84.5%/50%;
+}
+
   
     @media screen and (max-width: 800px){
     .sidebar1, .sidebar2{width:0px;}
