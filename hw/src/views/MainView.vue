@@ -57,7 +57,7 @@
   font-size: 14px;
   line-height: 10px;
   text-align: center;
-
+    margin-bottom:10px;
 }
 
 @media screen and (max-width: 800px){

@@ -52,19 +52,6 @@
   background-color:   #113f67;
 }
 
-.resetlikes{
-  color:#e7eaf6;
-  font-weight: bold;
-  width: 100px;
-  height: 50px;
-  background-color:   #113f67;
-  border-radius: 8px;
-  font-size: 14px;
-  line-height: 10px;
-  text-align: center;
-
-}
-
 
 footer{
     display:flex;
@@ -73,7 +60,6 @@ footer{
     background-color: #38598b;
     border-radius: 25px;
     padding: 40px;
-    margin: 10px;
 }
 footer nav{
   background-color:  #38598b;
