@@ -52,7 +52,7 @@
   font-weight: bold;
   width: 100px;
   height: 50px;
-  background-color:   #113f67;
+  background-color:#113f67;
   border-radius: 8px;
   font-size: 14px;
   line-height: 10px;
@@ -60,6 +60,9 @@
     margin-bottom:10px;
 }
 
+.resetlikes p{
+    background-color:#113f67;
+}
 @media screen and (max-width: 800px){
     .sidebar1, .sidebar2{width:0px;}
     .posts{ width:100%}
