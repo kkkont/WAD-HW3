@@ -7,7 +7,9 @@
       <input type="password" name="password" required v-model="password">
       <div class="container">
         <button @click="SignUp()" type="submit" class="center">Sign Up</button>
+        <button @click='this.$router.push("/login")' type="submit" class="account">I have an account</button>
       </div>
+      
     </div>
 </template>
 
@@ -93,8 +95,17 @@ data: function() {
     cursor: pointer;
     font-size: 16px;
   }
+  .account{
+    background-color:  #38598b;
+    border:none;
+    text-decoration: underline;
+    color:white;
+    padding:20px;
+  }
 
-
+  .account:hover{
+    color:gray
+  }
   
 .center:hover {
   background-color: #113f67;
@@ -110,6 +121,7 @@ data: function() {
   .container {
     background-color:  #38598b;
     display: flex;
+    flex-direction: column;
     justify-content: center;
   }
 </style>

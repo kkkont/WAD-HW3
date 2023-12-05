@@ -5,7 +5,7 @@
       <input type="email" name="email"  required v-model="email">
       <label for="password">Password</label>
       <input type="password" name="password" required v-model="password">
-      <div class="container">
+      <div class="container1">
         <button @click="LogIn"  class="center">Log In</button>
         <button @click='this.$router.push("/signup")' class="center">Sign Up</button>
       </div>
@@ -116,7 +116,7 @@ button:hover {
     margin-top: 20px;
     width: 30%; 
   }
-  .container {
+  .container1 {
     background-color:  #38598b;
     display: flex;
     justify-content: center;
