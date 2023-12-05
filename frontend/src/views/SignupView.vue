@@ -1,38 +1,14 @@
 <template>
-  <div class="div">
-        <div class= "sidebar1"></div>
-        <div class="signup">
-          <div id="signup-page">
-        <div class="form-container">
-            <h1>Sign Up</h1>
-      <form @submit.prevent="signUp" class="signup-form">
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" name="email" v-model="email" placeholder="Email" required>
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" name="password" v-model="password" placeholder="Password" required>
-        </div>
-        <div v-if="!isPasswordValid" class="password-error">
-          <p>Password is not valid. Please follow the specified conditions.</p>
-          <ul>
-            <li>At least 8 characters and less than 15 characters</li>
-            <li>At least one uppercase alphabet character</li>
-            <li>At least two lowercase alphabet characters</li>
-            <li>At least one numeric value</li>
-            <li>Start with an uppercase alphabet</li>
-            <li>Include the character "_"</li>
-          </ul>
-        </div>
-  
-        <button @click="SignUp" type="submit" class="signup-button">Sign Up</button>
-      </form>
+  <div class="form">
+      <h1>Sign Up</h1>
+      <label for="email">Email</label>
+      <input type="email" name="email"  required v-model="email">
+      <label for="password">Password</label>
+      <input type="password" name="password" required v-model="password">
+      <div class="container">
+        <button @click="SignUp()" type="submit" class="center">Sign Up</button>
+      </div>
     </div>
-    </div>
-        </div>
-        <div class= "sidebar2"></div>
-  </div>
 </template>
 
 <script>
@@ -45,9 +21,7 @@ data: function() {
   }
   },
   methods: {
-
-
-SignUp() {
+      SignUp() {
       var data = {
         email: this.email,
         password: this.password
@@ -72,110 +46,46 @@ SignUp() {
         console.log("error");
       });
     },
-  },
-  validatePassword() {
-        const regex = /^(?=.*[A-Z])(?=.*[a-z].*[a-z])(?=.*\d)(?=.*_)[A-Z].{7,14}$/;
-        return regex.test(this.password);
-      }
-  }
+  }};
 </script>
 
 <style>
-.div {
-  display: flex;
-}
-
-.signup{
-    width:60%;
-   }
-.sidebar1{
-    margin:20px 0px 20px 0px;
-    width:20%;
-    background-color: #38598b;
-    border-radius: 25px;
-}
-.sidebar2{
-    margin:20px 0px 20px 0px;
-    width:20%;
-    background-color: #38598b;
-    border-radius: 25px;
-}
-
-h2 {
-  color: #38598b;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-#signup-page{
-    display:flex;
-    margin:20px;
-  }
-
-.form-container {
-  display:flex;
-  flex-direction: column;
-  margin:0px auto 0px auto;
-  padding: 215px 100px;
-  background-color: #1f3453;
-  border-radius: 25px;
-}
-
-h1 {
-    color: #fff;
-    margin-bottom: 20px;
-    background-color: #1f3453;
-}
-input{
-  color: #fff;
-}
-.signup-form {
-    background-color: #1f3453;
-  }
-
-  .form-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #1f3453;
-    margin-bottom: 20px;
-  }
-  
-  label {
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
-    font-weight: bold;
-    margin-right: 10px;
-    display: block;
-    margin-bottom: 5px;
-    color: #fff;
-    background-color: #1f3453;
-    width: 100px;
-}
-  
-  input {
-    width: 70%;
-    padding: 20px;
-    font-size: 18px;
-    background-color: #324e79;
-    border-radius: 20px;
-  }
-  
-  .password-error {
-    display:flex;
-    flex-direction: column;
-    background-color: #38598b;
-    padding:10px;
-    border-radius:25px;
-    margin-bottom:10px;
-    color: red;
-  }
-  ul,li,p{
+  .form {
+    max-width: 420px;
+    margin: 30px auto;
     background-color:  #38598b;
+    text-align: left;
+    padding: 40px;
+    border-radius: 25px;
+  }
+  h1{
+    background-color:  #38598b;
+    text-align: center;
+    color:#e7eaf6;
+  }
+  label {
+    color:#e7eaf6;
+    background-color:  #38598b;
+    display: inline-block;
+    margin: 25px 0 15px;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+  }
+  input {
+    display: block;
+    padding: 10px 6px;
+    width: 100%;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid white;
+    color:#e7eaf6;
+  
   }
   
-  .signup-button {
-    background-color: #38598b;
+ .center {
+    background-color: #2d4972;
     color: #fff;
     padding: 20px 30px;
     border: none;
@@ -184,14 +94,22 @@ input{
     font-size: 16px;
   }
 
+
   
-  .signup-button:hover {
-    background-color: #113f67;
+.center:hover {
+  background-color: #113f67;
   }
 
-
-@media screen and (max-width: 800px){
-    .sidebar1, .sidebar2{width:0px;}
-    .signup{ width:100%}
-}
+  .center {
+    margin: auto;
+    border: 0;
+    padding: 10px 20px;
+    margin-top: 20px;
+    width: 30%; 
+  }
+  .container {
+    background-color:  #38598b;
+    display: flex;
+    justify-content: center;
+  }
 </style>

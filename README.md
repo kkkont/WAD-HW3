@@ -1,5 +1,5 @@
 # WAD Homework project
-### By Roberta Solom, Kadri-Ketter Kont and Andrei Tsistjakov
+### By Roberta Solom, Kadri-Ketter Kont and Andrei Tsistjakovs
 
 ## WAD-HW Backend
 

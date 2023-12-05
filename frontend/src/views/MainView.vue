@@ -8,6 +8,8 @@
         <div class= "sidebar2"></div>
     </div>
     <button class="resetlikes" @click="removeLikes(post)"><p>Reset likes</p> </button>
+    <button class="resetlikes" @click="removeLikes(post)"><p>Add posts</p> </button>
+    <button class="resetlikes" @click="removeLikes(post)"><p>Delete all</p> </button>
    </template>
    
    <script>
@@ -44,9 +46,9 @@
     },
    }
 
-   </script>
+</script>
    
-   <style>
+<style>
    .div{
     display:flex
    }
@@ -73,9 +75,8 @@
   background-color:#113f67;
   border-radius: 8px;
   font-size: 14px;
-  line-height: 10px;
   text-align: center;
-    margin-bottom:10px;
+  margin:10px;
 }
 
 .logout{
@@ -91,5 +92,5 @@
 }
    
 
-   </style>
+</style>
    
