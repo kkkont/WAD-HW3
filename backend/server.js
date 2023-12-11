@@ -128,9 +128,8 @@ app.get('/auth/logout', (req, res) => {
 
 app.post('/api/posts', async(req, res) => {
     try {
-        onsole.log("a post request has arrived");
+        console.log("a post request has arrived");
         const post = {
-            id: req.body.id,
             title: req.body.title,
             body: req.body.body,
             urllink: req.body.urllink,
@@ -139,8 +138,8 @@ app.post('/api/posts', async(req, res) => {
             likes: req.body.likes
         };
         const newPost = await pool.query(
-          'INSERT INTO posttable(id,title,body,urllink, date, author,likes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
-          [post.id, post.title, post.body, post.urllink,  post.date, post.author, post.likes]
+          'INSERT INTO posttable(title,body,urllink, date, author,likes) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+          [post.title, post.body, post.urllink,  post.date, post.author, post.likes]
         );
         res.json(newPost);
       } catch (error) {
@@ -159,3 +158,30 @@ app.get('/api/posts', async(req, res) => {
         console.error(err.message);
     }
 });
+
+app.put('/api/posts/like/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log("like request has arrived");
+  
+      // Assuming you increment likes by 1 on each like
+      const updateLikes = await pool.query(
+        "UPDATE posttable SET likes = likes + 1 WHERE id = $1 RETURNING likes",
+        [id]
+      );
+  
+      res.json(updateLikes.rows[0].likes);
+    } catch (err) {
+      console.error(err.message);
+    }
+  });
+
+  app.delete('/api/posts', async (req, res) => {
+    try {
+      console.log("delete all posts request has arrived");
+      await pool.query('DELETE FROM posttable');
+      res.json({ message: 'All posts deleted successfully' });
+    } catch (error) {
+      console.error(error.message);
+    }
+  });

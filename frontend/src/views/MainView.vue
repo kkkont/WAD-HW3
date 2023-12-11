@@ -8,7 +8,7 @@
         <div class= "sidebar2"></div>
     </div>
     <button class="resetlikes" @click='this.$router.push("/addpost")'><p>Add posts</p> </button>
-    <button class="resetlikes" @click="removeLikes(post)"><p>Delete all</p> </button>
+    <button class="resetlikes" @click="deletePosts()"><p>Delete all</p> </button>
    </template>
    
    <script>
@@ -22,6 +22,28 @@
     authResult: auth.authenticated()
    }},
    methods: {
+    deletePosts() {
+     fetch('http://localhost:3000/api/posts', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+
+      .then((response) => {
+        console.log('Posts deleted successfully');
+        this.fetchPosts();
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }, 
+  fetchPosts() {
+      fetch(`http://localhost:3000/api/posts/`)
+        .then((response) => response.json())
+        .then((data) => (this.posts = data))
+        .catch((err) => console.log(err.message));
+    },
     Logout() {
       fetch("http://localhost:3000/auth/logout", {
           credentials: 'include', //  Don't forget to specify this if you need cookies

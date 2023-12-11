@@ -10,10 +10,10 @@
         </div>
     <h4 class="title">{{ post.title}}</h4>
     <p class="text"> {{post.body}} </p>
-    <img class="img" :src="post.img" >
+    <img v-if="post.urllink" class="img" :src="post.urllink" alt="Post Image">
     <div class="likesDiv">
         <h4 class="likes"> {{post.likes}} </h4>
-        <button :class="{ 'heart-button': true, 'isColorTransition': isColorTransition }" style="width:50px" @click="likePost(post); changeColor()">
+        <button :class="{ 'heart-button': true, 'isColorTransition': isColorTransition }" style="width:50px" @click="likePost(post);">
     </button>
     </div>
     </p>
@@ -27,21 +27,38 @@
         data: function() {
     return {
         posts:[],
-        isColorTransition: false,
     }},
 
     methods: {
-        likePost(post){
-            this.$store.dispatch("likePostAct", post.id)
-        },
-        changeColor() {
+        likePost(post) {
+  const data = {
+    likes: post.likes + 1,
+  };
 
-      this.isColorTransition = true;
-
-      setTimeout(() => {
-        this.isColorTransition = false;
-      }, 150); 
+  fetch(`http://localhost:3000/api/posts/like/${post.id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify(data),
+  })
+  .then((response) => {
+      if (response.ok) {
+        post.likes += 1;
+      } else {
+        throw new Error("Failed to like the post");
+      }
+    })
+       .then((response) => {
+          console.log(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+          console.log("error");
+        });
+},
+
+
     fetchPosts() {
       fetch(`http://localhost:3000/api/posts/`)
         .then((response) => response.json())

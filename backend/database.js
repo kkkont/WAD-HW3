@@ -34,10 +34,10 @@ const createTblQuery = `
 
 const createTblQuery1 = `
     CREATE TABLE IF NOT EXISTS "posttable" (
-	    "id" SERIAL PRIMARY KEY,         
+	    id uuid PRIMARY KEY DEFAULT gen_random_uuid(),         
 	    "title" VARCHAR(200) NOT NULL,
 	    "body" VARCHAR(200) NOT NULL,
-        "urllink" VARCHAR(200)  
+        "urllink" VARCHAR(200), 
         "date" VARCHAR(200) NOT NULL,
         "author" VARCHAR(200) NOT NULL,
         "likes" INT

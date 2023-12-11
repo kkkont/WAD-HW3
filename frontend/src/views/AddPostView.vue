@@ -27,13 +27,14 @@ export default {
   },
   methods: {
   AddPost() {
+    const options = { day: "numeric", month: "long", year: "numeric" };
+    const formattedDate = new Date().toLocaleDateString("en-US", options);
         var data = {
-          id: 1,
           title: this.post.title,
           body: this.post.body,
           urllink: this.post.urllink,
-          date: new Date().toISOString(),
-          author: "Anynomous",
+          date: formattedDate,
+          author: "anonymous",
           likes: 0 
         };
         
