@@ -9,7 +9,6 @@
     </div>
     <button class="resetlikes" @click="removeLikes(post)"><p>Reset likes</p> </button>
     <button class="resetlikes" @click='this.$router.push("/addpost")'><p>Add posts</p> </button>
-    <button class="resetlikes" @click="removeLikes(post)"><p>Delete all</p> </button>
    </template>
    
    <script>
@@ -40,9 +39,6 @@
         console.log("error logout");
       });
     },
-    removeLikes: function() {
-        this.$store.dispatch('removeLikesAct');
-      }
     },
    }
 

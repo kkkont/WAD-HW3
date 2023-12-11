@@ -2,7 +2,7 @@ const Pool = require('pg').Pool;
 
 const pool = new Pool({
     user: "postgres",
-    password: "postgres", //add your password
+    password: "Paikesejanku1570", //add your password
     database: "wad-hw",
     host: "localhost",
     port: "5432"
@@ -11,7 +11,8 @@ const pool = new Pool({
 const execute = async(query) => {
     try {
         await pool.connect(); // create a connection
-        await pool.query(query); // executes a query
+        await pool.query(query);
+        await pool.query(query1); // executes a query
         return true;
     } catch (error) {
         console.error(error.stack);
@@ -31,9 +32,20 @@ const createTblQuery = `
         password VARCHAR(200) NOT NULL 
     );`;
 
-execute(createTblQuery).then(result => {
+const createTblQuery1 = `
+    CREATE TABLE IF NOT EXISTS "posttable" (
+	    "id" SERIAL PRIMARY KEY,         
+	    "title" VARCHAR(200) NOT NULL,
+	    "body" VARCHAR(200) NOT NULL,
+        "urllink" VARCHAR(200)  
+        "date" VARCHAR(200) NOT NULL,
+        "author" VARCHAR(200) NOT NULL,
+        "likes" INT
+    );`;
+
+execute(createTblQuery,createTblQuery1).then(result => {
     if (result) {
-        console.log('Table "users" is created');
+        console.log('Table "users" and "posttable" is created');
     }
 });
 

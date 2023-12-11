@@ -1,10 +1,14 @@
 <template>
     <div class="addpost">
       <h1>Add Post</h1>
-      <label for="body">Body</label>
+      <label for="title">Title:</label>
+      <input type="title" name="title" required v-model="title">
+      <label for="body">Body:</label>
       <input type="body" name="body" required v-model="body">
+      <label for="url">Add a picture url:</label>
+      <input type="url" name="url" required v-model="url">
       <div class="container1">
-        <button @click="AddPost"  class="center">Add</button>
+        <button @click="AddPost"  class="center">Add post</button>
       </div>
     </div>
   </template>
@@ -14,16 +18,25 @@ export default {
   name: "AddPost",
   data() {
     return {
-      body: '',
+      post:{
+        title: "",
+        body: "",
+        urllink: "",
+      },
     };
   },
   methods: {
   
   
   AddPost() {
-        const data = {
-          body: this.body,
-          date: new Date().toISOString(), 
+        var data = {
+          id: 1,
+          title: this.post.title,
+          body: this.post.body,
+          urllink: this.post.urllink,
+          date: new Date().toISOString(),
+          author: "Anynomous",
+          likes: 0 
         };
         
         // using Fetch - post method - send an HTTP post request to the specified URI with the defined body
@@ -35,13 +48,9 @@ export default {
             credentials: 'include', //  Don't forget to specify this if you need cookies
             body: JSON.stringify(data),
         })
-        .then((response) => response.json())
-        .then((data) => {
-        console.log(data);
-        //this.$router.push("/");
-        this.$store.dispatch('addPostAct', data);
-        this.body = '';
-        })
+        .then((response) => {
+          console.log(response.data);
+        this.$router.push("/");})
         .catch((e) => {
           console.log(e);
           console.log("error");
