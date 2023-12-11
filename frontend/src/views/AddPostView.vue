@@ -7,6 +7,12 @@
       <input type="body" name="body" required v-model="post.body">
       <label for="url">Add a picture url:</label>
       <input type="url" name="url" required v-model="post.urllink">
+      <label for="anonymous">Stay Anonymous?</label>
+      <div class="checkbox">
+        <input type="checkbox" id="anonymous-yes" v-model="post.isAnonymous">
+      </div>
+      <label v-if="!post.isAnonymous" for="author">Author:</label>
+      <input v-if="!post.isAnonymous" type="text" name="author" required v-model="post.author">
       <div class="container1">
         <button @click="AddPost"  class="center">Add post</button>
       </div>
@@ -29,12 +35,13 @@ export default {
   AddPost() {
     const options = { day: "numeric", month: "long", year: "numeric" };
     const formattedDate = new Date().toLocaleDateString("en-US", options);
+    const author = this.post.isAnonymous ? "anonymous" : this.post.author;
         var data = {
           title: this.post.title,
           body: this.post.body,
           urllink: this.post.urllink,
           date: formattedDate,
-          author: "anonymous",
+          author: author,
           likes: 0 
         };
         
@@ -123,6 +130,20 @@ background-color: #113f67;
   background-color:  #38598b;
   display: flex;
   justify-content: center;
+}
+
+.checkbox {
+
+  display: flex;
+  background-color:  #38598b;
+}
+.checkbox label {
+  margin-left: 10px;
+}
+
+.checkbox input{
+  width: 16px; /* Set the width of the checkbox */
+  height: 16px; 
 }
 </style>
   
