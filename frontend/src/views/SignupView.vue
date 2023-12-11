@@ -5,6 +5,7 @@
       <input type="email" name="email"  required v-model="email">
       <label for="password">Password</label>
       <input type="password" name="password" required v-model="password">
+      <div class="errMsg" v-if="errMsg">{{errMsg}} </div>
       <div class="container">
         <button @click="SignUp()" type="submit" class="center">Sign Up</button>
         <button @click='this.$router.push("/login")' type="submit" class="account">I have an account</button>
@@ -18,11 +19,24 @@
 export default {
 data: function() {
     return {
-   email: '',
+      email: '',
    password: '',
+   errMsg: '',
   }
   },
+  watch: {
+    password(value) {
+      this.password = value;
+      this.validatePassword(value);
+    }
+  },
   methods: {
+    validatePassword(value) {
+      if (value.length < 8 || value.length >= 16 || !/[A-Z]/.test(value) || !/[0-9]/.test(value)) {
+        this.errMsg = "Password must be at least 8 characters  and less than 16 characters, it must include a capital letter and at least one number"
+      }else{
+      this.errMsg = ''
+      }},
       SignUp() {
       var data = {
         email: this.email,
@@ -123,5 +137,10 @@ data: function() {
     display: flex;
     flex-direction: column;
     justify-content: center;
+  }
+  .errMsg{
+    padding-top:10px;
+    color:#e7eaf6;
+    background-color:  #38598b;
   }
 </style>
