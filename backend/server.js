@@ -129,7 +129,15 @@ app.get('/auth/logout', (req, res) => {
 app.post('/api/posts', async(req, res) => {
     try {
         onsole.log("a post request has arrived");
-        const post = req.body;
+        const post = {
+            id: req.body.id,
+            title: req.body.title,
+            body: req.body.body,
+            urllink: req.body.urllink,
+            date: req.body.date,
+            author: req.body.author,
+            likes: req.body.likes
+        };
         const newPost = await pool.query(
           'INSERT INTO posttable(id,title,body,urllink, date, author,likes) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *',
           [post.id, post.title, post.body, post.urllink,  post.date, post.author, post.likes]
@@ -138,4 +146,16 @@ app.post('/api/posts', async(req, res) => {
       } catch (error) {
         console.error(error.message);
       }
+});
+
+app.get('/api/posts', async(req, res) => {
+    try {
+        console.log("get posts request has arrived");
+        const posts = await pool.query(
+            "SELECT * FROM posttable"
+        );
+        res.json(posts.rows);
+    } catch (err) {
+        console.error(err.message);
+    }
 });

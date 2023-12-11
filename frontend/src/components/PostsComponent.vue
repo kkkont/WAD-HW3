@@ -1,6 +1,6 @@
 <template>
     <div id= "posts-component">
-    <p class="item" v-for="post in postList" :key="post.id">
+    <p class="item" v-for="post in posts" :key="post.id">
         <div class="postHeader">
             <div class="userDiv">
                 <img id ="user_icon" alt="User" src="../assets/user.png">
@@ -9,7 +9,7 @@
             <h4 class="date">{{ post.date}}</h4>
         </div>
     <h4 class="title">{{ post.title}}</h4>
-    <p class="text"> {{post.text}} </p>
+    <p class="text"> {{post.body}} </p>
     <img class="img" :src="post.img" >
     <div class="likesDiv">
         <h4 class="likes"> {{post.likes}} </h4>
@@ -26,13 +26,10 @@
         name: "PostsComponent",
         data: function() {
     return {
+        posts:[],
         isColorTransition: false,
     }},
-    computed: {
-        postList(){
-    return this.$store.state.postList}
-    
-    },
+
     methods: {
         likePost(post){
             this.$store.dispatch("likePostAct", post.id)
@@ -45,7 +42,17 @@
         this.isColorTransition = false;
       }, 150); 
     },
+    fetchPosts() {
+      fetch(`http://localhost:3000/api/posts/`)
+        .then((response) => response.json())
+        .then((data) => (this.posts = data))
+        .catch((err) => console.log(err.message));
     }
+    },
+    mounted() {
+    this.fetchPosts();
+    console.log("mounted");
+  },
     }
     </script>
     

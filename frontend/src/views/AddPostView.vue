@@ -2,11 +2,11 @@
     <div class="addpost">
       <h1>Add Post</h1>
       <label for="title">Title:</label>
-      <input type="title" name="title" required v-model="title">
+      <input type="title" name="title" required v-model="post.title">
       <label for="body">Body:</label>
-      <input type="body" name="body" required v-model="body">
+      <input type="body" name="body" required v-model="post.body">
       <label for="url">Add a picture url:</label>
-      <input type="url" name="url" required v-model="url">
+      <input type="url" name="url" required v-model="post.urllink">
       <div class="container1">
         <button @click="AddPost"  class="center">Add post</button>
       </div>
@@ -26,8 +26,6 @@ export default {
     };
   },
   methods: {
-  
-  
   AddPost() {
         var data = {
           id: 1,
@@ -50,7 +48,7 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-        this.$router.push("/");})
+           this.$router.push("/");})
         .catch((e) => {
           console.log(e);
           console.log("error");
