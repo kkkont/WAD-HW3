@@ -118,7 +118,21 @@ export default createStore({
         state.postList.forEach(post => {
             post.likes = 0;
         })
-    }
+    },
+
+    addPost: (state, { body, date }) => {
+        const newPost = {
+            id: state.postList.length + 1, // Generate a new ID based on the current length
+            title: "New Post",  // You can set a default title or customize as needed
+            date,
+            author: "Anonymous",  // You can set a default author or customize as needed
+            text: body,
+            likes: 0
+        };
+
+        state.postList.push(newPost);
+    },
+
 },
     actions: {
         likePostAct: (act, postId) => {
@@ -130,6 +144,12 @@ export default createStore({
         setTimeout(function() {
             act.commit("removeLikes")
         }, 1000)
-    }
+    },
+
+    addPostAct: (act, data) => {
+        setTimeout(function() {
+            act.commit("addPost", data)
+        }, 100)
+},
 }
 })

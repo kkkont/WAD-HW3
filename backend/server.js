@@ -125,3 +125,18 @@ app.get('/auth/logout', (req, res) => {
     console.log('delete jwt request arrived');
     res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" }).send
 });
+
+app.post('/api/posts', async(req, res) => {
+    try {
+        onsole.log("a post request has arrived");
+        const { body, date } = req.body;
+        const newPost = await pool.query(
+          'INSERT INTO posts (body, date) VALUES ($1, $2) RETURNING *',
+          [body, date]
+        );
+        res.status(201).json(newPost.rows[0]);
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+});
