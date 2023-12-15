@@ -32,6 +32,7 @@
 
       .then((response) => {
         console.log('Posts deleted successfully');
+        this.$router.go(0)
         this.fetchPosts();
       })
       .catch((e) => {
@@ -85,25 +86,30 @@
     background-color: #38598b;
     border-radius: 25px;
 }
-.resetlikes, .logout{
-  color:#e7eaf6;
-  font-weight: bold;
-  width: 100px;
-  height: 50px;
-  background-color:#113f67;
-  border-radius: 8px;
-  font-size: 14px;
-  text-align: center;
-  margin:10px;
-}
 
-.logout{
-    margin-top:20px;
-}
+.resetlikes, .logout {
+      color: #fff; /* Text color */
+      font-weight: bold;
+      width: 150px; /* Adjust the width as needed */
+      height: 60px; /* Adjust the height as needed */
+      background-color: #38598b; /* Button background color */
+      border: none; /* Remove border */
+      border-radius: 10px; /* Round the corners */
+      font-size: 16px; /* Adjust the font size */
+      text-align: center;
+      margin: 10px;
+      cursor: pointer; /* Add pointer cursor for better UX */
+      transition: background-color 0.3s ease; /* Add a smooth transition effect */
+   }  
 
-.resetlikes p{
-    background-color:#113f67;
-}
+   .logout {
+      margin-top: 20px;
+   }
+
+   .resetlikes p {
+    margin: 0;
+    background-color: transparent;
+  }
 @media screen and (max-width: 800px){
     .sidebar1, .sidebar2{width:0px;}
     .posts{ width:100%}

@@ -21,7 +21,7 @@ const maxAge = 60 * 60; //unlike cookies, the expiresIn in jwt token is calculat
 
 const generateJWT = (id) => {
     return jwt.sign({ id }, secret, { expiresIn: maxAge })
-        //jwt.sign(payload, secret, [options, callback]), and it returns the JWT as string
+    //jwt.sign(payload, secret, [options, callback]), and it returns the JWT as string
 }
 
 app.listen(port, () => {
@@ -30,7 +30,7 @@ app.listen(port, () => {
 
 
 // is used to check whether a user is authinticated
-app.get('/auth/authenticate', async(req, res) => {
+app.get('/auth/authenticate', async (req, res) => {
     console.log('authentication request has been arrived');
     const token = req.cookies.jwt; // assign the token named jwt to the token const
     //console.log("token " + token);
@@ -60,7 +60,7 @@ app.get('/auth/authenticate', async(req, res) => {
 });
 
 // signup a user
-app.post('/auth/signup', async(req, res) => {
+app.post('/auth/signup', async (req, res) => {
     try {
         console.log("a signup request has arrived");
         //console.log(req.body);
@@ -87,7 +87,7 @@ app.post('/auth/signup', async(req, res) => {
     }
 });
 
-app.post('/auth/login', async(req, res) => {
+app.post('/auth/login', async (req, res) => {
     try {
         console.log("a login request has arrived");
         const { email, password } = req.body;
@@ -126,7 +126,7 @@ app.get('/auth/logout', (req, res) => {
     res.status(202).clearCookie('jwt').json({ "Msg": "cookie cleared" }).send
 });
 
-app.post('/api/posts', async(req, res) => {
+app.post('/api/posts', async (req, res) => {
     try {
         console.log("a post request has arrived");
         const post = {
@@ -138,16 +138,16 @@ app.post('/api/posts', async(req, res) => {
             likes: req.body.likes
         };
         const newPost = await pool.query(
-          'INSERT INTO posttable(title,body,urllink, date, author,likes) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
-          [post.title, post.body, post.urllink,  post.date, post.author, post.likes]
+            'INSERT INTO posttable(title,body,urllink, date, author,likes) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+            [post.title, post.body, post.urllink, post.date, post.author, post.likes]
         );
         res.json(newPost);
-      } catch (error) {
+    } catch (error) {
         console.error(error.message);
-      }
+    }
 });
 
-app.get('/api/posts', async(req, res) => {
+app.get('/api/posts', async (req, res) => {
     try {
         console.log("get posts request has arrived");
         const posts = await pool.query(
@@ -161,27 +161,78 @@ app.get('/api/posts', async(req, res) => {
 
 app.put('/api/posts/like/:id', async (req, res) => {
     try {
-      const { id } = req.params;
-      console.log("like request has arrived");
-  
-      // Assuming you increment likes by 1 on each like
-      const updateLikes = await pool.query(
-        "UPDATE posttable SET likes = likes + 1 WHERE id = $1 RETURNING likes",
-        [id]
-      );
-  
-      res.json(updateLikes.rows[0].likes);
-    } catch (err) {
-      console.error(err.message);
-    }
-  });
+        const { id } = req.params;
+        console.log("like request has arrived");
 
-  app.delete('/api/posts', async (req, res) => {
-    try {
-      console.log("delete all posts request has arrived");
-      await pool.query('DELETE FROM posttable');
-      res.json({ message: 'All posts deleted successfully' });
-    } catch (error) {
-      console.error(error.message);
+        // Assuming you increment likes by 1 on each like
+        const updateLikes = await pool.query(
+            "UPDATE posttable SET likes = likes + 1 WHERE id = $1 RETURNING likes",
+            [id]
+        );
+
+        res.json(updateLikes.rows[0].likes);
+    } catch (err) {
+        console.error(err.message);
     }
-  });
+});
+
+app.put('/api/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { title, body, urllink, author } = req.body;
+
+        const updatedPost = await pool.query(
+            'UPDATE posttable SET title = $1, body = $2, urllink = $3, author = $4 WHERE id = $5 RETURNING *',
+            [title, body, urllink, author, id]
+        );
+
+        res.json(updatedPost.rows[0]);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+app.delete('/api/posts', async (req, res) => {
+    try {
+        console.log("delete all posts request has arrived");
+        await pool.query('DELETE FROM posttable');
+        res.json({ message: 'All posts deleted successfully' });
+    } catch (error) {
+        console.error(error.message);
+    }
+});
+
+app.delete('/api/posts/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(`delete post with id ${id} request has arrived`);
+
+        await pool.query('DELETE FROM posttable WHERE id = $1', [id]);
+
+        res.json({ message: `Post with id ${id} deleted successfully` });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+app.get('/api/posts/:id', async (req, res) => {
+    try {
+        console.log("get single post request has arrived");
+        const { id } = req.params;
+        const post = await pool.query("SELECT * FROM posttable WHERE id = $1", [id]);
+
+        if (post.rows.length === 0) {
+            return res.status(404).json({ error: 'Post not found' });
+        }
+
+        res.json(post.rows[0]);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+

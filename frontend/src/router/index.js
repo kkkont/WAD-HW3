@@ -2,7 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import MainView from '../views/MainView.vue'
 import SignupView from '../views/SignupView.vue'
 import AddPostView from '../views/AddPostView.vue'
-import PostView from '../views/PostView.vue'
+import PostView from '../views/PostView.vue';
 import LogIn from "../views/LogInView.vue";
 import Contacts from "../views/ContactsView.vue"
 import auth from "../auth";
@@ -35,7 +35,7 @@ const routes = [{
         name: "LogIn",
         component: LogIn,
     },
-    {   path: "/apost",
+    {   path: "/apost/:postId",
         name: "apost",
         component: PostView,
     },
