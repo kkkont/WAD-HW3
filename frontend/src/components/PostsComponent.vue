@@ -6,7 +6,7 @@
           <img id="user_icon" alt="User" src="../assets/user.png">
           <h4 class="author">{{ post.author }}</h4>
         </div>
-        <h4 class="date">{{ post.date }}</h4>
+        <h4 class="date">{{ new Date(post.date).toLocaleDateString("en-US", { day: "numeric", month: "long", year: "numeric" }) }}</h4>
       </div>
       <h4 class="title">{{ post.title }}</h4>
       <p class="text"> {{ post.body }} </p>
@@ -33,7 +33,6 @@ export default {
   methods: {
     likePost(post) {
       const data = {
-        alreadyliked: false,
         likes: post.likes + 1,
       };
 
@@ -70,7 +69,9 @@ export default {
     fetchPosts() {
       fetch(`http://localhost:3000/api/posts/`)
         .then((response) => response.json())
-        .then((data) => (this.posts = data))
+        .then((data) => { 
+          data.sort((a, b) => new Date(b.date) - new Date(a.date) );
+          this.posts = data;})
         .catch((err) => console.log(err.message));
     }
   },

@@ -33,8 +33,7 @@ export default {
   },
   methods: {
   AddPost() {
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    const formattedDate = new Date().toLocaleDateString("en-US", options);
+    const formattedDate = new Date();
     const author = this.post.isAnonymous ? "anonymous" : this.post.author;
         var data = {
           title: this.post.title,
