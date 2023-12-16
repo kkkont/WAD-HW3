@@ -33,6 +33,7 @@ export default {
   methods: {
     likePost(post) {
       const data = {
+        alreadyliked: false,
         likes: post.likes + 1,
       };
 

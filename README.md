@@ -39,3 +39,12 @@ npm run serve
 ```
 npm run build
 ```
+
+## In case of error related to bcrypt when starting backend
+
+```
+npm uninstall bcrypt
+```
+```
+npm install bcrypt
+```
